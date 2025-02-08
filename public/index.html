@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHAPARRITO</title>
+    <!-- Corrección en la hoja de estilos -->
+    <link rel="stylesheet" href="stiles.css">
+</head>
+<body>
+    <div class="lila-container">
+        <p>¿Quieres ser mi LIGUE?</p>
+    </div>
+
+    <div id="flower-container"></div>
+    <script src="script.js"></script>
+
+    <div class="image-container">
+        <img src="flor1.jpeg" alt="Flor">
+    </div>
+
+    <div class="image1-container">
+        <img src="flor1.jpeg" alt="Flor">
+    </div>
+
+    <div class="image2-container">
+        <img src="flor1.jpeg" alt="Flor">
+    </div>
+
+    <div class="image3-container">
+        <img src="flor1.jpeg" alt="Flor">
+    </div>
+
+    <div class="image4-container">
+        <img src="LIGUE.png" alt="Ligue">
+    </div>
+
+
+<div class="button-container">
+    <button class="yes-button">Sí</button>
+    <button class="no-button">No</button>
+</div>
+
+<script>
+    document.querySelector(".yes-button").addEventListener("click", () => {
+        fetch("http://localhost:3000/respuesta", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ respuesta: "Sí" })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                window.location.href = "gracias.html"; // Redirige a otra página
+            } else {
+                alert("Error al enviar la respuesta");
+            }
+        })
+        .catch(error => console.error("Error:", error));
+    });
+
+
+    document.querySelector(".no-button").addEventListener("click", () => {
+        fetch("http://localhost:3000/respuesta", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ respuesta: "No" })
+        })
+        const alertBox = document.createElement("div");
+        alertBox.textContent = "El no, no es una opción hombre necio";
+        alertBox.style.position = "fixed";
+        alertBox.style.top = "50%";
+        alertBox.style.left = "50%";
+        alertBox.style.transform = "translate(-50%, -50%)";
+        alertBox.style.backgroundColor = "red";
+        alertBox.style.color = "white";
+        alertBox.style.padding = "20px";
+        alertBox.style.fontSize = "30px";
+        alertBox.style.fontWeight = "bold";
+        alertBox.style.borderRadius = "10px";
+        alertBox.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.2)";
+        alertBox.style.zIndex = "1000";
+
+        document.body.appendChild(alertBox);
+
+        setTimeout(() => {
+            alertBox.remove();
+        }, 3000); // La alerta desaparecerá después de 3 segundos
+    });
+</script>
+
+    
+    
+</body>
+</html>
+
